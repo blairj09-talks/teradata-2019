@@ -1,0 +1,43 @@
+---
+title: "Data Load"
+output: html_notebook
+---
+
+```{r setup}
+# Packages ----
+library(tidyverse)
+library(DBI)
+```
+
+# Database Connection (via DSN)
+```{r connection}
+con <-dbConnect(
+  odbc::odbc(),
+  "Teradata"
+)
+```
+
+# Read data into R
+```{r}
+movies <- read_csv(here::here("data", "movies.csv"))
+```
+# Clean data
+Lump categorical variables
+```{r}
+movies <- movies %>% 
+  mutate(rating = fct_lump(rating, n = 5),
+         company = fct_lump(company, n = 10),
+         genre = fct_lump(genre, n = 10))
+```
+
+
+# Write data into Database
+```{r}
+dbWriteTable(con, "movies", movies, overwrite = TRUE)
+```
+
+# Disconnect from Database
+```{r}
+dbDisconnect(con)
+```
+
