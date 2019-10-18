@@ -5,9 +5,10 @@ output: html_notebook
 
 ```{r setup}
 # Packages ----
+library(DBI)
 library(tidyverse)
 library(corrr)
-library(DBI)
+library(dbplot)
 library(tidypredict)
 library(parsnip)
 library(modeldb)
@@ -53,6 +54,20 @@ Next, establish a connection to the specific movies table.
 movies_tbl <- tbl(con, "movies")
 ```
 
+# Plotting
+Use `dbplot` to plot data from the database
+```{r dbplot}
+dbplot_bar(movies_tbl, genre)
+```
+
+```{r}
+db_compute_count(movies_tbl, genre) %>% 
+  rename(n = 'n()') %>% 
+  mutate(genre = fct_reorder(genre, -n, max)) %>% 
+  ggplot(aes(x = genre, y = n)) +
+  geom_col()
+```
+
 # Correlations
 Use the `corrr` package to identify correlations in the movies dataset.
 ```{r correlation}
@@ -85,11 +100,6 @@ db_model <- movies_tbl %>%
 
 db_model
 ```
-```{r}
-tidypredict_fit(db_model)
-```
-
-
 ## tidypredict
 Use the `tidypredict` package to run predictions against data in the database.
 

@@ -315,6 +315,18 @@
       "Repository": "CRAN",
       "Hash": "63410438360944341b6bba487340a466"
     },
+    "dbplot": {
+      "Package": "dbplot",
+      "Version": "0.3.2",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "RemoteType": "standard",
+      "RemoteRef": "dbplot",
+      "RemoteRepos": "https://cran.rstudio.com",
+      "RemotePkgType": "source",
+      "RemoteSha": "0.3.2",
+      "Hash": "a524eaa5f612c4c82347714c8ea2e95d"
+    },
     "dbplyr": {
       "Package": "dbplyr",
       "Version": "1.4.2",
