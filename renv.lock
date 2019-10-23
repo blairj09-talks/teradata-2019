@@ -1141,10 +1141,10 @@
     },
     "tinytex": {
       "Package": "tinytex",
-      "Version": "0.15",
+      "Version": "0.16",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "11c9260eb54db1f55e7573844c2ae8ed"
+      "Hash": "9349f30ae6ddce61d7fa26f7b6228a73"
     },
     "utf8": {
       "Package": "utf8",
