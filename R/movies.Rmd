@@ -1,6 +1,8 @@
 ---
 title: "Movies"
 output: html_notebook
+resource_files:
+- config.yml
 ---
 
 ```{r setup}
@@ -44,9 +46,17 @@ First, connect to the database. In this case, a DSN is being used.
 
 
 ```{r}
+config <- config::get()
+
 con <- dbConnect(
   odbc::odbc(),
-  "Teradata"
+  driver = config$driver,
+  dbcname = config$dbcname,
+  database = config$database,
+  username = config$username,
+  password = config$password,
+  usexviews = config$usexviews,
+  sessionmode = config$sessionmode
 )
 ```
 
