@@ -14,7 +14,7 @@ library(parsnip)
 library(modeldb)
 
 # Plot settings ----
-old_theme <- theme_set(theme_bw())
+theme_set(theme_bw())
 ```
 
 
@@ -42,22 +42,40 @@ This data has been placed in a Teradata DB for further analysis.
 # Connect
 First, connect to the database. In this case, a DSN is being used.
 
-```{r connection}
+
+```{r}
 con <- dbConnect(
   odbc::odbc(),
   "Teradata"
 )
 ```
 
+
 Next, establish a connection to the specific movies table.
 ```{r movies}
 movies_tbl <- tbl(con, "movies")
+class(movies_tbl)
 ```
+
+```{r}
+movies_tbl %>% 
+  group_by(rating) %>% 
+  summarise(
+    avg_runtime = mean(runtime, na.rm = TRUE),
+    avg_score = mean(score, na.rm = TRUE)
+  ) %>% 
+  show_query()
+```
+
 
 # Plotting
 Use `dbplot` to plot data from the database
 ```{r dbplot}
-dbplot_bar(movies_tbl, genre)
+dbplot_bar(movies_tbl, genre) +
+  labs(title = "Movies by Genre",
+       x = "Genre",
+       y = "Count") +
+  coord_flip()
 ```
 
 ```{r}
@@ -100,6 +118,7 @@ db_model <- movies_tbl %>%
 
 db_model
 ```
+
 ## tidypredict
 Use the `tidypredict` package to run predictions against data in the database.
 
