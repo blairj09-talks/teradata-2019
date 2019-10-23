@@ -289,6 +289,13 @@
       "RemoteSha": "1.4-1",
       "Hash": "c25d49739abb6ebf4b3d0c3565574226"
     },
+    "config": {
+      "Package": "config",
+      "Version": "0.3",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "7a15075ad1798112b35de17b8de84dbc"
+    },
     "corrr": {
       "Package": "corrr",
       "Version": "0.4.0",
