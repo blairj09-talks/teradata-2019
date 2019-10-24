@@ -45,7 +45,7 @@ This data has been placed in a Teradata DB for further analysis.
 First, connect to the database. In this case, a DSN is being used.
 
 
-```{r}
+```{r connection}
 config <- config::get()
 
 con <- dbConnect(
@@ -67,7 +67,7 @@ movies_tbl <- tbl(con, "movies")
 class(movies_tbl)
 ```
 
-```{r}
+```{r show-query}
 movies_tbl %>% 
   group_by(rating) %>% 
   summarise(
@@ -88,7 +88,7 @@ dbplot_bar(movies_tbl, genre) +
   coord_flip()
 ```
 
-```{r}
+```{r dbplot-extended}
 db_compute_count(movies_tbl, genre) %>% 
   rename(n = 'n()') %>% 
   mutate(genre = fct_reorder(genre, -n, max)) %>% 
